@@ -2,7 +2,7 @@ package galeev.dao.utils;
 
 import jdk.incubator.foreign.MemorySegment;
 import galeev.dao.entry.Entry;
-import galeev.dao.iterators.MergeIterator;
+import galeev.dao.iterators.PriorityMergeIterator;
 import galeev.dao.iterators.PriorityPeekingIterator;
 
 import java.io.IOException;
@@ -63,7 +63,7 @@ public class DBReader implements AutoCloseable {
                 iterators.add(new PriorityPeekingIterator<>(fromToIterator.getFileId(), fromToIterator));
             }
         }
-        return new MergeIterator<>(iterators, MemorySegmentComparator.INSTANCE);
+        return new PriorityMergeIterator<>(iterators, MemorySegmentComparator.INSTANCE);
     }
 
     public Entry<MemorySegment, MemorySegment> get(MemorySegment key) {

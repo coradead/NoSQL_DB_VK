@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.PriorityQueue;
 
-public class MergeIterator<E, V> implements Iterator<Entry<E, V>> {
+public class PriorityMergeIterator<E, V> implements Iterator<Entry<E, V>> {
     private final PriorityQueue<PriorityPeekingIterator<Entry<E, V>>> iteratorsQueue;
     private final Comparator<E> keyComparator;
     private Entry<E, V> currentEntry;
@@ -16,7 +16,7 @@ public class MergeIterator<E, V> implements Iterator<Entry<E, V>> {
 
     // Low priority = old value
     // High priority = new value
-    public MergeIterator(
+    public PriorityMergeIterator(
             PriorityPeekingIterator<Entry<E, V>> iterator1,
             PriorityPeekingIterator<Entry<E, V>> iterator2,
             Comparator<E> keyComparator
@@ -32,7 +32,7 @@ public class MergeIterator<E, V> implements Iterator<Entry<E, V>> {
         }
     }
 
-    public MergeIterator(List<PriorityPeekingIterator<Entry<E, V>>> iterators, Comparator<E> keyComparator) {
+    public PriorityMergeIterator(List<PriorityPeekingIterator<Entry<E, V>>> iterators, Comparator<E> keyComparator) {
         this.keyComparator = keyComparator;
         int iterSize = iterators.isEmpty() ? 1 : iterators.size();
         iteratorsQueue = new PriorityQueue<>(iterSize, getIteratorComparator());

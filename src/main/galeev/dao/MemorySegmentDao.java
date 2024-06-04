@@ -2,7 +2,7 @@ package galeev.dao;
 
 import jdk.incubator.foreign.MemorySegment;
 import galeev.dao.entry.Entry;
-import galeev.dao.iterators.MergeIterator;
+import galeev.dao.iterators.PriorityMergeIterator;
 import galeev.dao.iterators.PriorityPeekingIterator;
 import galeev.dao.iterators.TombstoneRemoverIterator;
 import galeev.dao.utils.DBReader;
@@ -62,7 +62,7 @@ public class MemorySegmentDao {
                 flushingIterator = currentState.flushing.get(from, to);
             }
 
-            return new MergeIterator<>(
+            return new PriorityMergeIterator<>(
                     List.of(
                             new PriorityPeekingIterator<>(0, currentState.storage.get(from, to)),
                             new PriorityPeekingIterator<>(1, flushingIterator),
